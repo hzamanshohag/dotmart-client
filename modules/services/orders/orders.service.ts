@@ -57,7 +57,6 @@ export const createOrder = async (
   return res.json();
 };
 
-
 /** ✅ Get User Orders */
 export const getUserOrders = async (userId: string) => {
   const res = await fetch(`${BASE_URL}/orders/user/${userId}`, {
@@ -68,8 +67,6 @@ export const getUserOrders = async (userId: string) => {
 
   return res.json();
 };
-
-
 
 /** ✅ Get All Orders (Admin) */
 export const getAllOrdersAdmin = async () => {
@@ -96,7 +93,7 @@ export const getSinglelOrdersAdmin = async (orderId: string) => {
 /** ✅ Update Order Status (Admin) */
 export const updateOrderStatus = async (
   orderId: string,
-  status: OrderStatus
+  status: OrderStatus,
 ) => {
   const res = await fetch(`${BASE_URL}/orders/${orderId}/status`, {
     method: "PATCH",
@@ -111,7 +108,7 @@ export const updateOrderStatus = async (
 /** ✅ Update Payment Status (Admin) */
 export const updatePaymentStatus = async (
   orderId: string,
-  status: PaymentStatus
+  status: PaymentStatus,
 ) => {
   const res = await fetch(`${BASE_URL}/orders/${orderId}/payment`, {
     method: "PATCH",
@@ -123,20 +120,15 @@ export const updatePaymentStatus = async (
   return res.json();
 };
 
-
 /** ✅ VERIFY PAYMENT */
-export const verifyPayment = async (
-  transactionId: string,
-)=> {
+export const verifyPayment = async (transactionId: string) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/payment/success/${transactionId}`,
-      {
-        method: "GET",
-        headers: await authHeaders(),
-        cache: "no-store",
+    const res = await fetch(`${BASE_URL}/payment/success/${transactionId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
 
     const data = await res.json();
 
@@ -153,4 +145,3 @@ export const verifyPayment = async (
     };
   }
 };
-

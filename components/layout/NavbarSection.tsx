@@ -146,19 +146,17 @@ const handleLogOut = async () => {
     setNavLoading(true);
 
     await logout();
+
+    // Clear user context
     await refetchUser();
 
-    router.refresh();
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
+    // Hard redirect + reload
+    window.location.replace("/");
   } catch (error) {
     console.error("Logout failed:", error);
     setNavLoading(false);
   }
 };
-
   return (
     <>
       {(isInitialLoading || navLoading) && <LoadingSpinner />}
